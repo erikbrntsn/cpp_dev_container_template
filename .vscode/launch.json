@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug main",
+            "program": "${workspaceFolder}/build/debug/app/${fileBasenameNoExtension}",
+            "args": [],
+            "cwd": "${workspaceFolder}/build/debug",
+            "preLaunchTask": "build_debug",
+        }
+    ]
+}

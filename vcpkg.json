@@ -1,0 +1,13 @@
+{
+    "dependencies": [
+        {
+            "name": "gtest"
+        }
+    ],
+    "overrides": [
+        {
+            "name": "gtest",
+            "version": "1.16.0#0"
+        }
+    ]
+}

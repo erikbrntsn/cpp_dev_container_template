@@ -1,0 +1,38 @@
+{
+	"name": "C++",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"target": "base_dev",
+		"context": "..",
+		"options": [
+			"--build-arg=DOCKER_USERNAME=${localEnv:DOCKER_USERNAME}",
+			"--build-arg=DOCKER_USER_ID=${localEnv:DOCKER_USER_ID}",
+			"--build-arg=DOCKER_GROUP_ID=${localEnv:DOCKER_GROUP_ID}"
+		]
+	},
+	"mounts": [
+		"source=${localEnv:HOME}/.devcontainer/${localWorkspaceFolderBasename}.bash_history,target=/home/${localEnv:DOCKER_USERNAME}/.bash_history,type=bind,consistency=cached"
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"nefrob.vscode-just-syntax",
+				"xaver.clang-format",
+				"llvm-vs-code-extensions.vscode-clangd",
+				"vadimcn.vscode-lldb",
+				"ms-vscode.cmake-tools",
+				"streetsidesoftware.code-spell-checker"
+			]
+		}
+	},
+	"runArgs": [
+		// Enable X11 forwarding (allows running UI applications).
+		"-e",
+		"DISPLAY=${localEnv:DISPLAY}",
+		"-v",
+		"/tmp/.X11-unix:/tmp/.X11-unix:rw",
+		"-v",
+		"/dev/dri:/dev/dri"
+	],
+	"postCreateCommand": "just --completions bash >> ~/.bashrc"
+}

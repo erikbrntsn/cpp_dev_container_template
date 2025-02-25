@@ -1,0 +1,3 @@
+file(GLOB_RECURSE LIB_SOURCES "*.cpp")
+add_library(${PROJECT_NAME}_lib SHARED ${LIB_SOURCES})
+

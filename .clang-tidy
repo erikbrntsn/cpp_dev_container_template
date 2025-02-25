@@ -1,0 +1,18 @@
+Checks:
+"
+-*,
+bugprone-*,
+cert-*,
+clang-analyzer-*,
+clang-diagnostic-*,
+concurrency-*,
+cppcoreguidelines-*,
+    -cppcoreguidelines-pro-type-reinterpret-cast,
+misc-*,
+modernize-*,
+performance-*,
+readability-*,
+    -readability-math-missing-parentheses,
+"
+WarningsAsErrors: "*"
+HeaderFilterRegex: "src/,app/"
