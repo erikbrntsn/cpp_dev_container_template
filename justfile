@@ -50,6 +50,6 @@ docker_build:
         --target base_dev \
         .
 
-code: docker_build ensure_persistent_bash_history_exists
+code: ensure_persistent_bash_history_exists
     xhost +SI:localuser:`whoami`
     DOCKER_USERNAME=`whoami` DOCKER_USER_ID=`id -u` DOCKER_GROUP_ID=`id -g` code --folder-uri "vscode-remote://dev-container+{{`pwd | tr -d '\n' | xxd -p -c 1000000`}}/workspaces/`basename {{justfile_directory()}}`"
