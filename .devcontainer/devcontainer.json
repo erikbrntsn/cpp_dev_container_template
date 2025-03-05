@@ -7,7 +7,8 @@
 		"options": [
 			"--build-arg=DOCKER_USERNAME=${localEnv:DOCKER_USERNAME}",
 			"--build-arg=DOCKER_USER_ID=${localEnv:DOCKER_USER_ID}",
-			"--build-arg=DOCKER_GROUP_ID=${localEnv:DOCKER_GROUP_ID}"
+			"--build-arg=DOCKER_GROUP_ID=${localEnv:DOCKER_GROUP_ID}",
+			"--build-arg=PROJECT_NAME=${localEnv:PROJECT_NAME}"
 		]
 	},
 	"mounts": [

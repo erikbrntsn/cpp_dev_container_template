@@ -9,7 +9,10 @@ build BUILD_TYPE="release": (configure_cmake BUILD_TYPE)
     cd build/{{BUILD_TYPE}} && \
     make -j
 
-configure_cmake BUILD_TYPE:
+ensure_vcpkg_cache_exists:
+    @mkdir -p vcpkg_binary_cache
+
+configure_cmake BUILD_TYPE: ensure_vcpkg_cache_exists
     mkdir -p build && \
     cd build && \
     cmake -B {{BUILD_TYPE}} -DCMAKE_BUILD_TYPE={{BUILD_TYPE}} --preset=default ..
@@ -17,6 +20,9 @@ configure_cmake BUILD_TYPE:
 
 clean:
     rm -rf build
+
+remove_vcpkg_binary_cache:
+    rm -rf vcpkg_binary_cache
 
 run app="template_app" BUILD_TYPE="release": (build BUILD_TYPE)
     cd build/{{BUILD_TYPE}} && \
@@ -36,6 +42,8 @@ test BUILD_TYPE="release": (build BUILD_TYPE)
 # On Host
 ####################
 
+PROJECT_NAME := `basename $PWD`
+
 ensure_persistent_bash_history_exists:
     @mkdir -p ~/.devcontainer;
     @touch ~/.devcontainer/`basename {{justfile_directory()}}`.bash_history;
@@ -45,6 +53,7 @@ docker_build:
         --build-arg DOCKER_USERNAME=`whoami` \
         --build-arg DOCKER_USER_ID=`id -u` \
         --build-arg DOCKER_GROUP_ID=`id -g` \
+        --build-arg PROJECT_NAME={{PROJECT_NAME}} \
         -t template_project_container \
         -f .devcontainer/Dockerfile \
         --target base_dev \
@@ -52,4 +61,8 @@ docker_build:
 
 code: ensure_persistent_bash_history_exists
     xhost +SI:localuser:`whoami`
-    DOCKER_USERNAME=`whoami` DOCKER_USER_ID=`id -u` DOCKER_GROUP_ID=`id -g` code --folder-uri "vscode-remote://dev-container+{{`pwd | tr -d '\n' | xxd -p -c 1000000`}}/workspaces/`basename {{justfile_directory()}}`"
+    DOCKER_USERNAME=`whoami` \
+    DOCKER_USER_ID=`id -u` \
+    DOCKER_GROUP_ID=`id -g` \
+    PROJECT_NAME={{PROJECT_NAME}} \
+    code --folder-uri "vscode-remote://dev-container+{{`pwd | tr -d '\n' | xxd -p -c 1000000`}}/workspaces/{{PROJECT_NAME}}"

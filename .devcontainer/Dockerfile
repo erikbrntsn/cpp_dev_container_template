@@ -49,5 +49,8 @@ RUN cd /tmp && \
     cd vcpkg && \
     ./bootstrap-vcpkg.sh -disableMetrics
 
+ARG PROJECT_NAME=unnamed_project
+    
 ENV VCPKG_ROOT=/tmp/vcpkg
 ENV PATH=$VCPKG_ROOT:$PATH
+ENV VCPKG_BINARY_SOURCES="clear;files,/workspaces/$PROJECT_NAME/vcpkg_binary_cache,readwrite"
