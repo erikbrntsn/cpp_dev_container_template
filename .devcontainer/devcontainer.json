@@ -1,5 +1,5 @@
 {
-	"name": "C++",
+	"name": "${localEnv:PROJECT_NAME}",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"target": "base_dev",
@@ -12,7 +12,7 @@
 		]
 	},
 	"mounts": [
-		"source=${localEnv:HOME}/.devcontainer/${localWorkspaceFolderBasename}.bash_history,target=/home/${localEnv:DOCKER_USERNAME}/.bash_history,type=bind,consistency=cached"
+		"source=${localEnv:HOME}/.devcontainer/${localEnv:PROJECT_NAME}.bash_history,target=/home/${localEnv:DOCKER_USERNAME}/.bash_history,type=bind,consistency=cached"
 	],
 	"customizations": {
 		"vscode": {

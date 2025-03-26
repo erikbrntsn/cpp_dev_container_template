@@ -54,12 +54,19 @@ docker_build:
         --build-arg DOCKER_USER_ID=`id -u` \
         --build-arg DOCKER_GROUP_ID=`id -g` \
         --build-arg PROJECT_NAME={{PROJECT_NAME}} \
-        -t template_project_container \
+        -t {{PROJECT_NAME}} \
         -f .devcontainer/Dockerfile \
         --target base_dev \
         .
 
-code: ensure_persistent_bash_history_exists
+docker_run: docker_build
+    docker run -it --rm \
+        --device /dev/dri \
+        -e DISPLAY=$DISPLAY \
+        -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+        {{PROJECT_NAME}} /bin/bash
+
+code: docker_build ensure_persistent_bash_history_exists
     xhost +SI:localuser:`whoami`
     DOCKER_USERNAME=`whoami` \
     DOCKER_USER_ID=`id -u` \
