@@ -40,7 +40,7 @@ lint_all:
 
 test BUILD_TYPE="release": (build BUILD_TYPE)
     cd build/{{BUILD_TYPE}} && \
-    ctest
+    ctest --output-on-failure
 
 ####################
 # On Host
