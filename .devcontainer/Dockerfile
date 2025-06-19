@@ -10,7 +10,7 @@ RUN apt update && apt -y install \
     # vcpkg
     curl zip unzip tar pkg-config
 
-ARG CLANG_VERSION=19
+ARG CLANG_VERSION=20
 ARG GCC_VERSION=14
     
 RUN wget https://apt.llvm.org/llvm.sh && \
