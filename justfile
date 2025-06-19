@@ -24,8 +24,12 @@ clean:
 remove_vcpkg_binary_cache:
     rm -rf vcpkg_binary_cache
 
-run app="template_app" BUILD_TYPE="release": (build BUILD_TYPE)
-    cd build/{{BUILD_TYPE}} && \
+run app="template_app" +args="": (build "release")
+    cd build/release && \
+    app/{{app}}
+
+debug app="template_app" +args="": (build "debug")
+    cd build/debug && \
     app/{{app}}
 
 format_all:
