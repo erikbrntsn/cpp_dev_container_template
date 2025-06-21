@@ -2,4 +2,9 @@
 BasedOnStyle: LLVM
 IncludeBlocks: Regroup
 InsertNewlineAtEOF: True
+NamespaceIndentation: None
+AllowAllConstructorInitializersOnNextLine: true
+BreakConstructorInitializers: BeforeComma
+AlwaysBreakTemplateDeclarations: Yes
+AllowShortFunctionsOnASingleLine: None
 ---
